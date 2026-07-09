@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esma Tang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF9;
+    --bg-panel: #F1F1EE;
+    --ink: #14181F;
+    --ink-soft: #4B5259;
+    --line: #DEDEDA;
+    --accent: #2B3A67;
+    --accent-bright: #E8590C;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- HEADER / NAV ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(250, 250, 249, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+    z-index: 10;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+
+  .nav-mark {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    transition: color 0.15s ease;
+  }
+
+  .nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 96px 0 80px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent-bright);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    max-width: 780px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+  }
+
+  .hero p {
+    margin-top: 28px;
+    max-width: 540px;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+  }
+
+  .hero-actions {
+    margin-top: 40px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 13px 26px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+  .btn-ghost {
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
+  .btn-ghost:hover { border-color: var(--ink); transform: translateY(-1px); }
+
+  /* ---------- SECTION INDEX (signature element) ---------- */
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 40px;
+  }
+
+  .section-index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent-bright);
+    border: 1px solid var(--accent-bright);
+    border-radius: 2px;
+    padding: 3px 8px;
+  }
+
+  .section-head h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.9rem;
+  }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 56px;
+  }
+
+  .about-grid p { color: var(--ink-soft); margin-bottom: 16px; max-width: 560px; }
+
+  .fact-list { list-style: none; }
+  .fact-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+  }
+  .fact-list li:first-child { padding-top: 0; }
+  .fact-list span:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .skill-card {
+    background: var(--bg);
+    padding: 28px 24px;
+  }
+
+  .skill-card h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent-bright);
+    margin-bottom: 14px;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tags span {
+    font-size: 13px;
+    padding: 5px 10px;
+    background: var(--bg-panel);
+    border-radius: 2px;
+    color: var(--ink);
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .project-list { display: flex; flex-direction: column; }
+
+  .project-row {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+    transition: padding-left 0.2s ease;
+  }
+  .project-row:last-child { border-bottom: 1px solid var(--line); }
+  .project-row:hover { padding-left: 8px; background: var(--bg-panel); }
+
+  .project-num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .project-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  .project-desc {
+    display: block;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    font-weight: 400;
+  }
+
+  .project-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact-section { border-bottom: none; padding-bottom: 96px; }
+
+  .contact-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+
+  .contact-inner h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    max-width: 480px;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 10px; }
+
+  .contact-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    width: fit-content;
+  }
+  .contact-links a:hover { border-color: var(--accent-bright); color: var(--accent-bright); }
+
+  footer {
+    padding: 28px 0 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  @media (max-width: 720px) {
+    .nav-links { gap: 16px; }
+    .about-grid { grid-template-columns: 1fr; gap: 32px; }
+    .project-row { grid-template-columns: 40px 1fr; }
+    .project-tag { grid-column: 2; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+
+  a:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <span class="nav-mark">ESMA TANG</span>
+    <ul class="nav-links">
+      <li><a href="#hakkimda">Hakkımda</a></li>
+      <li><a href="#yetenekler">Yetenekler</a></li>
+      <li><a href="#projeler">Projeler</a></li>
+      <li><a href="#iletisim">İletişim</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <!-- Buradaki başlık ve açıklama metnini kendine göre düzenle -->
+  <section class="hero" style="border-bottom: 1px solid var(--line);">
+    <span class="hero-eyebrow">Portföy — 2026</span>
+    <h1>Esma Tang. <em>Birden fazla alanda</em> çalışan bir üretici.</h1>
+    <p>
+      Farklı disiplinleri bir araya getirerek fikirleri somut ürünlere dönüştürüyorum.
+      Aşağıda kim olduğum, ne yaptığım ve üzerinde çalıştığım projeler yer alıyor.
+    </p>
+    <div class="hero-actions">
+      <a href="#projeler" class="btn btn-primary">Projelerimi gör</a>
+      <a href="#iletisim" class="btn btn-ghost">İletişime geç</a>
+    </div>
+  </section>
+
+  <!-- ============ HAKKIMDA ============ -->
+  <section id="hakkimda">
+    <div class="section-head">
+      <span class="section-index">01</span>
+      <h2>Hakkımda</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <!-- Kendi hikayeni buraya yaz -->
+        <p>
+          Kendimi kısa tanımlarla sınırlamak yerine birden fazla alanda derinleşmeyi tercih ediyorum.
+          Meraklı, öğrenmeye açık ve ürettiği işin arkasında durabilen biriyim.
+        </p>
+        <p>
+          Şu anda yeni beceriler edinmeye ve bunları gerçek projelere dönüştürmeye odaklanıyorum.
+          Bu sayfadaki her bölüm, üzerinde çalıştığım farklı alanlardan bir kesit sunuyor.
+        </p>
+      </div>
+      <ul class="fact-list">
+        <li><span>Konum</span><span>Antalya, Türkiye</span></li>
+        <li><span>Odak</span><span>Çoklu disiplin</span></li>
+        <li><span>Durum</span><span>Yeni fırsatlara açık</span></li>
+        <li><span>GitHub</span><span>@esmatang34</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ YETENEKLER ============ -->
+  <section id="yetenekler">
+    <div class="section-head">
+      <span class="section-index">02</span>
+      <h2>Yetenekler</h2>
+    </div>
+    <!-- Kategori başlıklarını ve etiketleri kendine göre değiştir -->
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Geliştirme</h3>
+        <div class="skill-tags">
+          <span>HTML/CSS</span><span>Git</span><span>GitHub</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Araçlar</h3>
+        <div class="skill-tags">
+          <span>Cloudflare</span><span>VS Code</span><span>Figma</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Diğer</h3>
+        <div class="skill-tags">
+          <span>Proje Yönetimi</span><span>İçerik Üretimi</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJELER ============ -->
+  <section id="projeler">
+    <div class="section-head">
+      <span class="section-index">03</span>
+      <h2>Projeler</h2>
+    </div>
+    <!-- Her satır bir proje. href kısmına projenin linkini ekle -->
+    <div class="project-list">
+      <a href="#" class="project-row">
+        <span class="project-num">01</span>
+        <span>
+          <span class="project-title">Proje Adı Bir</span>
+          <span class="project-desc">Kısa açıklama — bu projede ne yaptığını bir cümleyle özetle.</span>
+        </span>
+        <span class="project-tag">github →</span>
+      </a>
+      <a href="#" class="project-row">
+        <span class="project-num">02</span>
+        <span>
+          <span class="project-title">Proje Adı İki</span>
+          <span class="project-desc">Kısa açıklama — bu projede ne yaptığını bir cümleyle özetle.</span>
+        </span>
+        <span class="project-tag">github →</span>
+      </a>
+      <a href="#" class="project-row">
+        <span class="project-num">03</span>
+        <span>
+          <span class="project-title">Proje Adı Üç</span>
+          <span class="project-desc">Kısa açıklama — bu projede ne yaptığını bir cümleyle özetle.</span>
+        </span>
+        <span class="project-tag">github →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ İLETİŞİM ============ -->
+  <section id="iletisim" class="contact-section">
+    <div class="section-head">
+      <span class="section-index">04</span>
+      <h2>İletişim</h2>
+    </div>
+    <div class="contact-inner">
+      <h2>Bir proje mi konuşmak istiyorsun, yoksa sadece merhaba mı demek istiyorsun?</h2>
+      <div class="contact-links">
+        <a href="mailto:esmatang34@gmail.com">esmatang34@gmail.com</a>
+        <a href="https://github.com/esmatang34" target="_blank" rel="noopener">github.com/esmatang34</a>
+        <a href="#" target="_blank" rel="noopener">linkedin.com/in/kullanici-adin</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  © 2026 Esma Tang
+</footer>
+
+</body>
+</html>
