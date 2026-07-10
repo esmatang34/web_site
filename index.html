@@ -112,8 +112,9 @@
     color: var(--ink);
     text-decoration: none;
     cursor: pointer;
-    display: flex;
-    align-items: center;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
     transition: color 0.3s ease;
   }
 
@@ -121,24 +122,35 @@
     color: #FFFFFF;
   }
 
-  .g-wrap {
-    position: relative;
-    display: inline-block;
-    line-height: 1;
+  .logo-stem {
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-bright);
+    border-radius: 1px;
+    transition: transform 0.3s ease;
+    transform-origin: left center;
   }
 
-  .g-tulip {
+  .logo-tulip-end {
     position: absolute;
-    bottom: -11px;
-    right: -13px;
-    width: 24px;
-    height: 24px;
+    bottom: -6px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
     pointer-events: none;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: bottom center;
   }
 
-  .nav-mark:hover .g-tulip {
-    transform: translateY(-2px) scale(1.2) rotate(15deg);
+  .nav-mark:hover .logo-tulip-end {
+    transform: scale(1.2) rotate(15deg);
+  }
+
+  .nav-mark:hover .logo-stem {
+    transform: scaleY(1.5);
   }
 
   .nav-controls {
@@ -609,7 +621,9 @@
 <header>
   <nav class="nav">
     <a href="#" class="nav-mark">
-      Esma Tan<span class="g-wrap">g<svg class="g-tulip" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M 4 22 Q 9 19 12 15" stroke="var(--accent-bright)" stroke-width="2.5" stroke-linecap="round" fill="none"/><path d="M 12 15 C 7 15 5.2 9.7 6.1 5.5 C 7.8 6.9 9.1 4.8 12 0.8 C 14.9 4.8 16.2 6.9 17.9 5.5 C 18.8 9.7 17 15 12 15 Z" fill="var(--accent-bright)" stroke="var(--bg)" stroke-width="1.5" stroke-linejoin="round"/></svg></span>.
+      <span class="logo-text">Esma Tang</span>
+      <span class="logo-stem"></span>
+      <svg class="logo-tulip-end" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M 12 22 C 6 22 4 15 6 9 C 8 11 9.5 8 12 2 C 14.5 8 16 11 18 9 C 20 15 18 22 12 22 Z" fill="var(--accent-bright)" stroke="var(--bg)" stroke-width="2" stroke-linejoin="round"/></svg>
     </a>
     
     <div class="nav-controls">
