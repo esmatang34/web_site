@@ -6,8 +6,8 @@
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --color: #60A5FA;
-        --bg-stroke: #0C0F12;
+        --color: #000000;
+        --bg-stroke: #FAFAF9;
       }
     }
     .fill-color { fill: var(--color); }
