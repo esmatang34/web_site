@@ -105,14 +105,27 @@
   }
 
   .nav-mark {
-    font-family: 'Fraunces', serif;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--ink);
+    display: flex;
+    align-items: center;
     text-decoration: none;
     cursor: pointer;
-    transition: color 0.3s ease;
+  }
+
+  .nav-logo {
+    height: 48px;
+    width: auto;
+    border-radius: 4px;
+    transition: transform 0.2s ease, opacity 0.3s ease;
+    mix-blend-mode: multiply;
+  }
+
+  .nav-logo:hover {
+    transform: scale(1.04);
+  }
+
+  body.dark-theme .nav-logo {
+    mix-blend-mode: normal;
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   .nav-controls {
@@ -582,7 +595,9 @@
 
 <header>
   <nav class="nav">
-    <a href="#" class="nav-mark">Esma Tang.</a>
+    <a href="#" class="nav-mark">
+      <img src="esma_tang_logo.jpg" alt="Esma Tang" class="nav-logo">
+    </a>
     
     <div class="nav-controls">
       <button id="lang-toggle" class="control-btn" aria-label="Dili değiştir / Change language">
