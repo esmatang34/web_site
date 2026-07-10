@@ -105,27 +105,40 @@
   }
 
   .nav-mark {
-    display: flex;
-    align-items: center;
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
     text-decoration: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
   }
 
-  .nav-logo {
-    height: 48px;
-    width: auto;
-    border-radius: 4px;
-    transition: transform 0.2s ease, opacity 0.3s ease;
-    mix-blend-mode: multiply;
+  body.dark-theme .nav-mark {
+    color: #FFFFFF;
   }
 
-  .nav-logo:hover {
-    transform: scale(1.04);
+  .g-wrap {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
   }
 
-  body.dark-theme .nav-logo {
-    mix-blend-mode: normal;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+  .g-tulip {
+    position: absolute;
+    bottom: -6px;
+    right: -10px;
+    width: 15px;
+    height: 15px;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .nav-mark:hover .g-tulip {
+    transform: translateY(-2px) scale(1.2) rotate(15deg);
   }
 
   .nav-controls {
@@ -596,7 +609,7 @@
 <header>
   <nav class="nav">
     <a href="#" class="nav-mark">
-      <img src="esma_tang_logo.jpg" alt="Esma Tang" class="nav-logo">
+      Esma Tan<span class="g-wrap">g<svg class="g-tulip" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M 12 22 C 6 22 4 15 6 9 C 8 11 9.5 8 12 2 C 14.5 8 16 11 18 9 C 20 15 18 22 12 22 Z" fill="var(--accent-bright)" stroke="var(--bg)" stroke-width="2" stroke-linejoin="round"/></svg></span>.
     </a>
     
     <div class="nav-controls">
