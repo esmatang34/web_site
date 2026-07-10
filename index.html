@@ -112,9 +112,9 @@
     color: var(--ink);
     text-decoration: none;
     cursor: pointer;
-    position: relative;
-    display: inline-block;
-    padding-bottom: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     transition: color 0.3s ease;
   }
 
@@ -122,35 +122,15 @@
     color: #FFFFFF;
   }
 
-  .logo-stem {
-    position: absolute;
-    bottom: 2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--accent-bright);
-    border-radius: 1px;
-    transition: transform 0.3s ease;
-    transform-origin: left center;
-  }
-
   .logo-tulip-end {
-    position: absolute;
-    bottom: -6px;
-    right: -10px;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     pointer-events: none;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transform-origin: bottom center;
   }
 
   .nav-mark:hover .logo-tulip-end {
-    transform: scale(1.2) rotate(15deg);
-  }
-
-  .nav-mark:hover .logo-stem {
-    transform: scaleY(1.5);
+    transform: scale(1.15) rotate(10deg);
   }
 
   .nav-controls {
@@ -622,8 +602,23 @@
   <nav class="nav">
     <a href="#" class="nav-mark">
       <span class="logo-text">Esma Tang</span>
-      <span class="logo-stem"></span>
-      <svg class="logo-tulip-end" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M 12 22 C 6 22 4 15 6 9 C 8 11 9.5 8 12 2 C 14.5 8 16 11 18 9 C 20 15 18 22 12 22 Z" fill="var(--accent-bright)" stroke="var(--bg)" stroke-width="2" stroke-linejoin="round"/></svg>
+      <svg class="logo-tulip-end" viewBox="-15 -7 30 30" xmlns="http://www.w3.org/2000/svg">
+        <!-- Center stem dot -->
+        <circle cx="0" cy="20" r="3" fill="var(--accent-bright)"/>
+        
+        <!-- Right side elements -->
+        <g id="right-petal-group">
+          <!-- Center bud half -->
+          <path d="M 0 12 C 1 8 4 1 6.5 -4 C 4 -1.5 2 1 0 2 Z" fill="var(--accent-bright)" stroke="var(--bg)" stroke-width="1.2" stroke-linejoin="round"/>
+          <!-- Inner petal -->
+          <path d="M 0 12 C 2 9 6.5 5 10.5 0 C 8.5 3.5 5.5 7 0 9 Z" fill="var(--accent-bright)" stroke="var(--bg)" stroke-width="1.2" stroke-linejoin="round"/>
+          <!-- Outer petal -->
+          <path d="M 0 12 C 4.5 12 10.5 12.5 13.5 6 C 10 9 5 10.5 0 10.5 Z" fill="var(--accent-bright)" stroke="var(--bg)" stroke-width="1.2" stroke-linejoin="round"/>
+        </g>
+        
+        <!-- Left side mirrored -->
+        <use href="#right-petal-group" transform="scale(-1, 1)"/>
+      </svg>
     </a>
     
     <div class="nav-controls">
