@@ -604,24 +604,32 @@
   <nav class="nav">
     <a href="#" class="nav-mark">
       <span class="logo-text">Esma Tang</span>
-      <svg class="logo-tulip-end" viewBox="-16 -7 32 32" xmlns="http://www.w3.org/2000/svg">
-        <!-- Center stem dot -->
-        <circle cx="0" cy="20" r="3.5" fill="var(--logo-color)"/>
+      <svg class="logo-tulip-end" viewBox="-16 -16 32 32" xmlns="http://www.w3.org/2000/svg">
+        <!-- Center bottom teardrop -->
+        <path d="M 0 -1 C 2.5 -1 3.5 3 3.5 8 C 3.5 12 1.5 15 0 15 C -1.5 15 -3.5 12 -3.5 8 C -3.5 3 -2.5 -1 0 -1 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
+        
+        <!-- Central stamen -->
+        <path d="M 0 -2 L 0 -13" fill="none" stroke="var(--logo-color)" stroke-width="1" stroke-linecap="round"/>
+        <circle cx="0" cy="-14.2" r="1.2" fill="var(--logo-color)"/>
         
         <!-- Right side elements -->
-        <g id="right-petal-group">
-          <!-- Center bud half -->
-          <path d="M 0 12 C 1 8 4 1 6.5 -4 C 4 -1.5 2 1 0 2 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
-          <!-- Inner petal -->
-          <path d="M 0 12 C 2 9 6.5 5 10.5 0 C 8.5 3.5 5.5 7 0 9 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
-          <!-- Outer petal -->
-          <path d="M 0 12 C 4.5 12 10.5 12.5 13.5 6 C 10 9 5 10.5 0 10.5 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
-          <!-- Lower outer leaf/petal -->
-          <path d="M 0 12 C 3 14 11 15 14.5 11 C 11 12.5 5 12.5 0 11 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
+        <g id="right-blossom-group">
+          <!-- Side stamen -->
+          <path d="M 0 -2 C 1.5 -6 3.5 -9.5 6 -11.2" fill="none" stroke="var(--logo-color)" stroke-width="1" stroke-linecap="round"/>
+          <circle cx="6" cy="-12.4" r="1.2" fill="var(--logo-color)"/>
+          
+          <!-- Upper petal -->
+          <path d="M 0 -2 C 1.5 -6 4.5 -8.5 7.5 -8.5 C 9.5 -8.5 11 -7.5 9.5 -4.5 C 8.5 -2.5 5 -0.5 0 -2 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
+          
+          <!-- Side tiny leaf -->
+          <path d="M 8.8 -5 C 9.8 -5 11.2 -4.5 11.5 -3.5 C 10.8 -2.8 9.8 -2.8 8.8 -3.2 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
+          
+          <!-- Lower petal -->
+          <path d="M 0 -2 C 2.5 -2 7.5 -1 9.5 3 C 10.5 5.5 10 8.5 8 10 C 8.5 8 8 5 5 2.5 C 3 1 1 -0.5 0 -2 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
         </g>
         
         <!-- Left side mirrored -->
-        <use href="#right-petal-group" transform="scale(-1, 1)"/>
+        <use href="#right-blossom-group" transform="scale(-1, 1)"/>
       </svg>
     </a>
     
