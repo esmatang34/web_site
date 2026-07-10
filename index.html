@@ -17,6 +17,7 @@
     --accent: #2B3A67;
     --accent-bright: #7A1C2E;
     --bg-header: rgba(250, 250, 249, 0.92);
+    --logo-color: var(--accent-bright);
   }
 
   /* ---------- DARK THEME ---------- */
@@ -29,6 +30,7 @@
     --accent: #60A5FA;
     --accent-bright: #A63F52;
     --bg-header: rgba(12, 15, 18, 0.92);
+    --logo-color: var(--accent);
   }
 
   body.dark-theme .hero::before {
@@ -602,18 +604,20 @@
   <nav class="nav">
     <a href="#" class="nav-mark">
       <span class="logo-text">Esma Tang</span>
-      <svg class="logo-tulip-end" viewBox="-15 -7 30 30" xmlns="http://www.w3.org/2000/svg">
+      <svg class="logo-tulip-end" viewBox="-16 -7 32 32" xmlns="http://www.w3.org/2000/svg">
         <!-- Center stem dot -->
-        <circle cx="0" cy="20" r="3.5" fill="var(--accent-bright)"/>
+        <circle cx="0" cy="20" r="3.5" fill="var(--logo-color)"/>
         
         <!-- Right side elements -->
         <g id="right-petal-group">
           <!-- Center bud half -->
-          <path d="M 0 12 C 1 8 4 1 6.5 -4 C 4 -1.5 2 1 0 2 Z" fill="var(--accent-bright)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
+          <path d="M 0 12 C 1 8 4 1 6.5 -4 C 4 -1.5 2 1 0 2 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
           <!-- Inner petal -->
-          <path d="M 0 12 C 2 9 6.5 5 10.5 0 C 8.5 3.5 5.5 7 0 9 Z" fill="var(--accent-bright)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
+          <path d="M 0 12 C 2 9 6.5 5 10.5 0 C 8.5 3.5 5.5 7 0 9 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
           <!-- Outer petal -->
-          <path d="M 0 12 C 4.5 12 10.5 12.5 13.5 6 C 10 9 5 10.5 0 10.5 Z" fill="var(--accent-bright)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
+          <path d="M 0 12 C 4.5 12 10.5 12.5 13.5 6 C 10 9 5 10.5 0 10.5 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
+          <!-- Lower outer leaf/petal -->
+          <path d="M 0 12 C 3 14 11 15 14.5 11 C 11 12.5 5 12.5 0 11 Z" fill="var(--logo-color)" stroke="var(--bg)" stroke-width="0.8" stroke-linejoin="round"/>
         </g>
         
         <!-- Left side mirrored -->
