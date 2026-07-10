@@ -16,6 +16,23 @@
     --line: #DEDEDA;
     --accent: #2B3A67;
     --accent-bright: #7A1C2E;
+    --bg-header: rgba(250, 250, 249, 0.92);
+  }
+
+  /* ---------- DARK THEME ---------- */
+  body.dark-theme {
+    --bg: #0C0F12;
+    --bg-panel: #161A1F;
+    --ink: #FAFAF9;
+    --ink-soft: #9EA5B0;
+    --line: #242B35;
+    --accent: #5C70A6;
+    --accent-bright: #A63F52;
+    --bg-header: rgba(12, 15, 18, 0.92);
+  }
+
+  body.dark-theme .hero::before {
+    opacity: 0.12;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,6 +45,7 @@
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   .wrap {
@@ -60,7 +78,63 @@
     font-size: 18px;
     font-weight: 600;
     letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
   }
+
+  .nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    margin-right: 24px;
+    z-index: 101;
+  }
+
+  .control-btn {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    width: 38px;
+    height: 38px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    padding: 0;
+  }
+
+  .control-btn:hover, .control-btn:focus-visible {
+    border-color: var(--ink);
+    background: var(--bg-panel);
+    transform: translateY(-1px);
+  }
+
+  .control-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--ink);
+    fill: none;
+  }
+
+  body.dark-theme .sun-icon { display: block; }
+  body.dark-theme .moon-icon { display: none; }
+  body:not(.dark-theme) .sun-icon { display: none; }
+  body:not(.dark-theme) .moon-icon { display: block; }
+
+  /* Language visibility */
+  body.lang-tr .lang-en { display: none !important; }
+  body.lang-en .lang-tr { display: none !important; }
+  
+  body.lang-tr .en { display: none !important; }
+  body.lang-en .tr { display: none !important; }
 
   .nav-links { display: flex; gap: 28px; list-style: none; }
 
@@ -69,7 +143,7 @@
     text-decoration: none;
     font-size: 14px;
     font-family: 'JetBrains Mono', monospace;
-    transition: color 0.15s ease;
+    transition: color 0.15s ease, background-color 0.3s ease;
   }
 
   .nav-links a:hover, .nav-links a:focus-visible { color: var(--accent); }
@@ -283,7 +357,7 @@
     border-top: 1px solid var(--line);
     text-decoration: none;
     color: var(--ink);
-    transition: padding-left 0.2s ease;
+    transition: padding-left 0.2s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   }
   .project-row:last-child { border-bottom: 1px solid var(--line); }
   .project-row:hover { padding-left: 8px; background: var(--bg-panel); }
@@ -344,6 +418,7 @@
     border-bottom: 1px solid var(--line);
     padding-bottom: 2px;
     width: fit-content;
+    transition: color 0.15s ease, border-color 0.15s ease;
   }
   .contact-links a:hover { border-color: var(--accent-bright); color: var(--accent-bright); }
 
@@ -353,9 +428,14 @@
     font-size: 12px;
     color: var(--ink-soft);
     text-align: center;
+    transition: color 0.3s ease;
   }
 
   @media (max-width: 720px) {
+    .nav-controls {
+      margin-right: 16px;
+    }
+
     .nav-toggle {
       display: flex;
     }
@@ -373,7 +453,7 @@
       box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
       padding: 100px 40px 40px;
       gap: 28px;
-      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
       z-index: 99;
     }
 
@@ -416,9 +496,30 @@
     .project-tag { grid-column: 2; }
   }
 
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; }
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
   }
 
   a:focus-visible, .btn:focus-visible {
@@ -431,17 +532,31 @@
 
 <header>
   <nav class="nav">
-    <span class="nav-mark">Esma Tang.</span>
+    <a href="#" class="nav-mark">Esma Tang.</a>
+    
+    <div class="nav-controls">
+      <button id="lang-toggle" class="control-btn" aria-label="Dili değiştir / Change language">
+        <span class="tr">EN</span>
+        <span class="en">TR</span>
+      </button>
+      <button id="theme-toggle" class="control-btn" aria-label="Temayı değiştir / Toggle theme">
+        <!-- Sun icon -->
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <!-- Moon icon -->
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
+    </div>
+
     <button class="nav-toggle" aria-label="Menüyü Aç/Kapat" aria-expanded="false">
       <span class="hamburger-bar"></span>
       <span class="hamburger-bar"></span>
       <span class="hamburger-bar"></span>
     </button>
     <ul class="nav-links">
-      <li><a href="#hakkimda">Hakkımda</a></li>
-      <li><a href="#yetenekler">Yetenekler</a></li>
-      <li><a href="#projeler">Projeler</a></li>
-      <li><a href="#iletisim">İletişim</a></li>
+      <li><a href="#hakkimda"><span class="tr">Hakkımda</span><span class="en">About</span></a></li>
+      <li><a href="#yetenekler"><span class="tr">Yetenekler</span><span class="en">Skills</span></a></li>
+      <li><a href="#projeler"><span class="tr">Projeler</span><span class="en">Projects</span></a></li>
+      <li><a href="#iletisim"><span class="tr">İletişim</span><span class="en">Contact</span></a></li>
     </ul>
     <div class="nav-overlay"></div>
   </nav>
@@ -450,15 +565,19 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="wrap">
-    <span class="hero-eyebrow">Portföy — 2026</span>
-    <h1>Esma Tang. <em>Birden fazla alanda</em> çalışan bir üretici.</h1>
-    <p>
+    <span class="hero-eyebrow"><span class="tr">Portföy — 2026</span><span class="en">Portfolio — 2026</span></span>
+    <h1>Esma Tang. <span class="tr"><em>Birden fazla alanda</em> çalışan bir üretici.</span><span class="en">A builder working in <em>multiple fields</em>.</span></h1>
+    <p class="tr">
       Farklı disiplinleri bir araya getirerek fikirleri somut ürünlere dönüştürüyorum.
       Aşağıda kim olduğum, ne yaptığım ve üzerinde çalıştığım projeler yer alıyor.
     </p>
+    <p class="en">
+      I bring different disciplines together to turn ideas into concrete products.
+      Below is who I am, what I do, and the projects I work on.
+    </p>
     <div class="hero-actions">
-      <a href="#projeler" class="btn btn-primary">Projelerimi gör</a>
-      <a href="#iletisim" class="btn btn-ghost">İletişime geç</a>
+      <a href="#projeler" class="btn btn-primary"><span class="tr">Projelerimi gör</span><span class="en">See my projects</span></a>
+      <a href="#iletisim" class="btn btn-ghost"><span class="tr">İletişime geç</span><span class="en">Get in touch</span></a>
     </div>
   </div>
 </section>
@@ -466,90 +585,98 @@
 <div class="wrap">
 
   <!-- ============ HAKKIMDA ============ -->
-  <section id="hakkimda">
+  <section id="hakkimda" class="reveal">
     <div class="section-head">
       <span class="section-index">01</span>
-      <h2>Hakkımda</h2>
+      <h2><span class="tr">Hakkımda</span><span class="en">About Me</span></h2>
     </div>
     <div class="about-grid">
-      <div>
+      <div class="reveal reveal-delay-1">
         <!-- Kendi hikayeni buraya yaz -->
-        <p>
+        <p class="tr">
           Kendimi kısa tanımlarla sınırlamak yerine birden fazla alanda derinleşmeyi tercih ediyorum.
           Meraklı, öğrenmeye açık ve ürettiği işin arkasında durabilen biriyim.
         </p>
-        <p>
+        <p class="tr">
           Şu anda yeni beceriler edinmeye ve bunları gerçek projelere dönüştürmeye odaklanıyorum.
           Bu sayfadaki her bölüm, üzerinde çalıştığım farklı alanlardan bir kesit sunuyor.
         </p>
+        <p class="en">
+          Instead of limiting myself to short definitions, I prefer to go deep in multiple areas.
+          I am curious, open to learning, and someone who stands behind the work they build.
+        </p>
+        <p class="en">
+          Currently, I am focusing on acquiring new skills and turning them into real projects.
+          Each section on this page offers a glimpse into the different areas I work on.
+        </p>
       </div>
-      <ul class="fact-list">
-        <li><span>Konum</span><span>Kayseri, Türkiye</span></li>
-        <li><span>Odak</span><span>Çoklu disiplin</span></li>
-        <li><span>Durum</span><span>Yeni fırsatlara açık</span></li>
+      <ul class="fact-list reveal reveal-delay-2">
+        <li><span><span class="tr">Konum</span><span class="en">Location</span></span><span><span class="tr">Kayseri, Türkiye</span><span class="en">Kayseri, Turkey</span></span></li>
+        <li><span><span class="tr">Odak</span><span class="en">Focus</span></span><span><span class="tr">Çoklu disiplin</span><span class="en">Multidiscipline</span></span></li>
+        <li><span><span class="tr">Durum</span><span class="en">Status</span></span><span><span class="tr">Yeni fırsatlara açık</span><span class="en">Open to opportunities</span></span></li>
         <li><span>GitHub</span><span>@esmatang34</span></li>
       </ul>
     </div>
   </section>
 
   <!-- ============ YETENEKLER ============ -->
-  <section id="yetenekler">
+  <section id="yetenekler" class="reveal">
     <div class="section-head">
       <span class="section-index">02</span>
-      <h2>Yetenekler</h2>
+      <h2><span class="tr">Yetenekler</span><span class="en">Skills</span></h2>
     </div>
     <!-- Kategori başlıklarını ve etiketleri kendine göre değiştir -->
     <div class="skills-grid">
-      <div class="skill-card">
-        <h3>Geliştirme</h3>
+      <div class="skill-card reveal reveal-delay-1">
+        <h3><span class="tr">Geliştirme</span><span class="en">Development</span></h3>
         <div class="skill-tags">
           <span>HTML/CSS</span><span>Git</span><span>GitHub</span><span>Python</span><span>C</span>
         </div>
       </div>
-      <div class="skill-card">
-        <h3>Araçlar</h3>
+      <div class="skill-card reveal reveal-delay-2">
+        <h3><span class="tr">Araçlar</span><span class="en">Tools</span></h3>
         <div class="skill-tags">
           <span>Cloudflare</span><span>VS Code</span><span>Docker</span><span>n8n</span><span>PocketBase</span>
         </div>
       </div>
-      <div class="skill-card">
-        <h3>Diğer</h3>
+      <div class="skill-card reveal reveal-delay-3">
+        <h3><span class="tr">Diğer</span><span class="en">Other</span></h3>
         <div class="skill-tags">
-          <span>Proje Yönetimi</span><span>İçerik Üretimi</span>
+          <span><span class="tr">Proje Yönetimi</span><span class="en">Project Management</span></span><span><span class="tr">İçerik Üretimi</span><span class="en">Content Creation</span></span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============ PROJELER ============ -->
-  <section id="projeler">
+  <section id="projeler" class="reveal">
     <div class="section-head">
       <span class="section-index">03</span>
-      <h2>Projeler</h2>
+      <h2><span class="tr">Projeler</span><span class="en">Projects</span></h2>
     </div>
     <!-- Her satır bir proje. href kısmına projenin linkini ekle -->
     <div class="project-list">
-      <a href="#" class="project-row">
+      <a href="#" class="project-row reveal reveal-delay-1">
         <span class="project-num">01</span>
         <span>
-          <span class="project-title">Docker Üzerinden WordPress Yedekleme</span>
-          <span class="project-desc">Docker ortamındaki WordPress sitelerinin veritabanı ve dosyalarını otomatik olarak yedekleyen ve depolayan sistem.</span>
+          <span class="project-title"><span class="tr">Docker Üzerinden WordPress Yedekleme</span><span class="en">WordPress Backup via Docker</span></span>
+          <span class="project-desc"><span class="tr">Docker ortamındaki WordPress sitelerinin veritabanı ve dosyalarını otomatik olarak yedekleyen ve depolayan sistem.</span><span class="en">A system that automatically backs up and stores databases and files of WordPress sites in a Docker environment.</span></span>
         </span>
         <span class="project-tag">github →</span>
       </a>
-      <a href="#" class="project-row">
+      <a href="#" class="project-row reveal reveal-delay-2">
         <span class="project-num">02</span>
         <span>
-          <span class="project-title">Minigo Takip Uygulaması</span>
-          <span class="project-desc">Minigo Çocuk oyun alanındaki çocukların güvenliğini ve durumlarını velilerin anlık olarak izlemesini sağlayan veli takip sistemi.</span>
+          <span class="project-title"><span class="tr">Minigo Takip Uygulaması</span><span class="en">Minigo Tracking Application</span></span>
+          <span class="project-desc"><span class="tr">Minigo Çocuk oyun alanındaki çocukların güvenliğini ve durumlarını velilerin anlık olarak izlemesini sağlayan veli takip sistemi.</span><span class="en">A parent tracking system that allows parents to monitor the safety and status of children in the Minigo Kids playground in real-time.</span></span>
         </span>
         <span class="project-tag">github →</span>
       </a>
-      <a href="#" class="project-row" style="pointer-events: none; opacity: 0.7;">
+      <a href="#" class="project-row reveal reveal-delay-3" style="pointer-events: none; opacity: 0.7;">
         <span class="project-num">03</span>
         <span>
-          <span class="project-title">Yakında</span>
-          <span class="project-desc">Yeni proje yakında eklenecektir.</span>
+          <span class="project-title"><span class="tr">Yakında</span><span class="en">Coming Soon</span></span>
+          <span class="project-desc"><span class="tr">Yeni proje yakında eklenecektir.</span><span class="en">A new project will be added soon.</span></span>
         </span>
         <span class="project-tag"></span>
       </a>
@@ -557,14 +684,14 @@
   </section>
 
   <!-- ============ İLETİŞİM ============ -->
-  <section id="iletisim" class="contact-section">
+  <section id="iletisim" class="contact-section reveal">
     <div class="section-head">
       <span class="section-index">04</span>
-      <h2>İletişim</h2>
+      <h2><span class="tr">İletişim</span><span class="en">Contact</span></h2>
     </div>
     <div class="contact-inner">
-      <h2>Bir proje mi konuşmak istiyorsun, yoksa sadece merhaba mı demek istiyorsun?</h2>
-      <div class="contact-links">
+      <h2 class="reveal reveal-delay-1"><span class="tr">Bir proje mi konuşmak istiyorsun, yoksa sadece merhaba mı demek istiyorsun?</span><span class="en">Want to discuss a project, or just say hello?</span></h2>
+      <div class="contact-links reveal reveal-delay-2">
         <a href="mailto:esmatang34@gmail.com">esmatang34@gmail.com</a>
         <a href="https://github.com/esmatang34" target="_blank" rel="noopener">github.com/esmatang34</a>
         <a href="https://linkedin.com/in/esma-tang-9438a3395" target="_blank" rel="noopener">linkedin.com/in/esma-tang-9438a3395</a>
@@ -608,6 +735,58 @@
   menuLinks.forEach(link => {
     link.addEventListener('click', closeMenu);
   });
+
+  // ---------- THEME TOGGLE ----------
+  const themeToggle = document.getElementById('theme-toggle');
+  
+  // Check preference
+  const savedTheme = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    document.body.classList.add('dark-theme');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    localStorage.setItem('theme', currentTheme);
+  });
+
+  // ---------- LANGUAGE TOGGLE ----------
+  const langToggle = document.getElementById('lang-toggle');
+  
+  // Default to Turkish (lang-tr)
+  const savedLang = localStorage.getItem('lang') || 'tr';
+  document.body.classList.add(`lang-${savedLang}`);
+
+  langToggle.addEventListener('click', () => {
+    if (document.body.classList.contains('lang-tr')) {
+      document.body.classList.remove('lang-tr');
+      document.body.classList.add('lang-en');
+      localStorage.setItem('lang', 'en');
+    } else {
+      document.body.classList.remove('lang-en');
+      document.body.classList.add('lang-tr');
+      localStorage.setItem('lang', 'tr');
+    }
+  });
+
+  // ---------- SCROLL REVEAL ----------
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.05,
+    rootMargin: '0px 0px -20px 0px'
+  });
+
+  revealElements.forEach(el => revealObserver.observe(el));
 </script>
 
 </body>
