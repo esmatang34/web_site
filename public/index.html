@@ -1559,8 +1559,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           });
         }
 
-        formContainer.style.display = 'none';
-        successContainer.classList.add('active');
+        // Redirect to thank you page
+        window.location.href = '/tesekkurler.html';
       } catch (err) {
         const errMsg = getLang() === 'tr' 
           ? 'Bir sorun oluştu, lütfen tekrar deneyin.' 
