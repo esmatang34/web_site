@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MEASUREMENT_ID');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Esma Tang</title>
@@ -1538,6 +1547,15 @@
 
       try {
         await sendToTelegram(data);
+
+        // Trigger Google Analytics Form Success Event
+        if (typeof gtag === 'function') {
+          gtag('event', 'form_submission_success', {
+            'event_category': 'Contact',
+            'event_label': 'Portfolio Contact Form'
+          });
+        }
+
         formContainer.style.display = 'none';
         successContainer.classList.add('active');
       } catch (err) {
