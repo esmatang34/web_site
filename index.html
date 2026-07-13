@@ -578,6 +578,8 @@
 
   .modal-body {
     padding: 28px;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   .contact-form {
@@ -619,9 +621,9 @@
     background: var(--bg);
   }
 
-  textarea.form-control {
-    resize: vertical;
-    min-height: 120px;
+  select.form-control {
+    height: 46px;
+    cursor: pointer;
   }
 
   .form-submit-btn {
@@ -651,7 +653,7 @@
   .form-success-icon {
     width: 48px;
     height: 48px;
-    color: var(--accent-bright);
+    color: var(--accent);
     stroke-width: 1.5;
     fill: none;
   }
@@ -668,6 +670,34 @@
     max-width: 320px;
     line-height: 1.5;
   }
+
+  /* Validation & Error Styles */
+  .form-group.invalid .form-control {
+    border-color: var(--accent-bright);
+  }
+  
+  .error-text {
+    color: var(--accent-bright);
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .form-group.invalid .error-text {
+    display: block;
+  }
+
+  .status-msg {
+    margin-top: 14px;
+    font-size: 14px;
+    text-align: center;
+    display: none;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .status-msg.show { display: block; }
+  .status-msg.success { color: var(--accent); }
+  .status-msg.fail { color: var(--accent-bright); }
 
   footer {
     padding: 28px 0 40px;
@@ -1109,43 +1139,80 @@
     
     <!-- Form Content -->
     <div id="contact-form-container" class="modal-body">
-      <form id="portfolio-contact-form" class="contact-form">
-        <div class="form-group">
+      <form id="portfolio-contact-form" class="contact-form" novalidate>
+        <!-- Honeypot -->
+        <div style="position: absolute; left: -9999px; top: -9999px;">
+          <label for="form-website">Website</label>
+          <input type="text" id="form-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form-group" id="field-name">
           <label for="form-name">
             <span class="tr">Ad Soyad</span>
             <span class="en">Name Surname</span>
           </label>
-          <input type="text" id="form-name" class="form-control" required>
+          <input type="text" id="form-name" name="fullName" class="form-control" placeholder="Ad Soyad" autocomplete="name">
+          <div class="error-text">
+            <span class="tr">Lütfen ad soyad girin.</span>
+            <span class="en">Please enter your name and surname.</span>
+          </div>
         </div>
         
-        <div class="form-group">
-          <label for="form-email">
-            <span class="tr">E-posta</span>
-            <span class="en">Email Address</span>
+        <div class="form-group" id="field-phone">
+          <label for="form-phone">
+            <span class="tr">Cep Telefonu</span>
+            <span class="en">Phone Number</span>
           </label>
-          <input type="email" id="form-email" class="form-control" required>
+          <input type="tel" id="form-phone" name="phone" class="form-control" placeholder="05XX XXX XX XX" autocomplete="tel">
+          <div class="error-text">
+            <span class="tr">Lütfen geçerli bir telefon numarası girin.</span>
+            <span class="en">Please enter a valid phone number.</span>
+          </div>
         </div>
 
-        <div class="form-group">
-          <label for="form-subject">
-            <span class="tr">Konu</span>
-            <span class="en">Subject</span>
+        <div class="form-group" id="field-project">
+          <label for="form-project">
+            <span class="tr">Proje Seçimi</span>
+            <span class="en">Project Type</span>
           </label>
-          <input type="text" id="form-subject" class="form-control" required>
+          <select id="form-project" name="projectType" class="form-control">
+            <option value="" disabled selected>Seçiniz / Select</option>
+            <option value="Web Sitesi">Web Sitesi / Website</option>
+            <option value="E-ticaret">E-ticaret / E-commerce</option>
+            <option value="Mobil Uygulama">Mobil Uygulama / Mobile App</option>
+            <option value="Kurumsal Kimlik">Kurumsal Kimlik / Corporate Identity</option>
+            <option value="Diğer">Diğer / Other</option>
+          </select>
+          <div class="error-text">
+            <span class="tr">Lütfen bir proje türü seçin.</span>
+            <span class="en">Please select a project type.</span>
+          </div>
+        </div>
+
+        <div class="form-group" id="field-budget">
+          <label for="form-budget">
+            <span class="tr">Bütçe</span>
+            <span class="en">Budget</span>
+          </label>
+          <select id="form-budget" name="budget" class="form-control">
+            <option value="" disabled selected>Seçiniz / Select</option>
+            <option value="10.000 - 25.000 TL">10.000 - 25.000 TL</option>
+            <option value="25.000 - 50.000 TL">25.000 - 50.000 TL</option>
+            <option value="50.000 - 100.000 TL">50.000 - 100.000 TL</option>
+            <option value="100.000 TL üzeri">100.000 TL üzeri / Over 100.000 TL</option>
+            <option value="Belirsiz / Görüşerek karar vereceğim">Belirsiz / Decided in consultation</option>
+          </select>
+          <div class="error-text">
+            <span class="tr">Lütfen bir bütçe aralığı seçin.</span>
+            <span class="en">Please select a budget range.</span>
+          </div>
         </div>
         
-        <div class="form-group">
-          <label for="form-message">
-            <span class="tr">Mesajınız</span>
-            <span class="en">Your Message</span>
-          </label>
-          <textarea id="form-message" class="form-control" required></textarea>
-        </div>
-        
-        <button type="submit" class="btn btn-primary form-submit-btn">
+        <button type="submit" class="btn btn-primary form-submit-btn" id="submitBtn">
           <span class="tr">Gönder</span>
           <span class="en">Send</span>
         </button>
+        <div class="status-msg" id="statusMsg"></div>
       </form>
     </div>
 
@@ -1155,12 +1222,12 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
       <h4 class="form-success-title">
-        <span class="tr">Teşekkürler!</span>
-        <span class="en">Thank you!</span>
+        <span class="tr">Talebiniz alındı</span>
+        <span class="en">Request received</span>
       </h4>
       <p class="form-success-desc">
-        <span class="tr">Mesajınız başarıyla iletildi. En kısa sürede geri dönüş yapacağım.</span>
-        <span class="en">Your message has been sent successfully. I will get back to you as soon as possible.</span>
+        <span class="tr">En kısa sürede sizinle iletişime geçeceğiz.</span>
+        <span class="en">We will contact you as soon as possible.</span>
       </p>
       <button id="success-close-btn" class="btn btn-primary" style="margin-top: 15px;">
         <span class="tr">Kapat</span>
@@ -1328,10 +1395,30 @@
   const formContainer = document.getElementById('contact-form-container');
   const successContainer = document.getElementById('contact-success-msg');
   const successCloseBtn = document.getElementById('success-close-btn');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusMsg = document.getElementById('statusMsg');
+
+  // ============================================================
+  // TELEGRAM AYARLARI — kendi bilgilerinizle değiştirin
+  // ============================================================
+  const TELEGRAM_BOT_TOKEN = "BOT_TOKEN_BURAYA"; // BotFather'dan aldığınız token
+  const TELEGRAM_CHAT_ID   = "CHAT_ID_BURAYA";   // Bildirimlerin gideceği grup/kanal ID'si
+  // ============================================================
+
+  function getLang() {
+    return document.body.classList.contains('lang-en') ? 'en' : 'tr';
+  }
 
   function openModal() {
     contactModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    if (contactForm) {
+      contactForm.reset();
+      clearErrors();
+      statusMsg.className = 'status-msg';
+    }
+    formContainer.style.display = 'block';
+    successContainer.classList.remove('active');
   }
 
   function closeModal() {
@@ -1339,7 +1426,9 @@
     document.body.style.overflow = '';
     // Reset form and success state after transition finishes
     setTimeout(() => {
-      contactForm.reset();
+      if (contactForm) contactForm.reset();
+      clearErrors();
+      statusMsg.className = 'status-msg';
       formContainer.style.display = 'block';
       successContainer.classList.remove('active');
     }, 300);
@@ -1363,21 +1452,121 @@
     }
   });
 
+  function clearErrors() {
+    document.querySelectorAll('.form-group').forEach(f => f.classList.remove('invalid'));
+  }
+
+  function showFieldError(fieldId) {
+    const el = document.getElementById(fieldId);
+    if (el) el.classList.add('invalid');
+  }
+
+  function validatePhone(value) {
+    // Basit TR telefon kontrolü: rakam, boşluk, +, - kabul edilir, en az 10 hane
+    const digits = value.replace(/\D/g, '');
+    return digits.length >= 10;
+  }
+
+  function validateForm(data) {
+    let valid = true;
+    clearErrors();
+
+    if (!data.fullName || data.fullName.trim().length < 3) {
+      showFieldError('field-name');
+      valid = false;
+    }
+    if (!data.phone || !validatePhone(data.phone)) {
+      showFieldError('field-phone');
+      valid = false;
+    }
+    if (!data.projectType) {
+      showFieldError('field-project');
+      valid = false;
+    }
+    if (!data.budget) {
+      showFieldError('field-budget');
+      valid = false;
+    }
+    return valid;
+  }
+
+  function showStatus(message, type) {
+    statusMsg.textContent = message;
+    statusMsg.className = 'status-msg show ' + type;
+  }
+
+  async function sendToTelegram(data) {
+    const text =
+      "🆕 *Yeni İletişim Talebi*\n" +
+      "👤 *Ad Soyad:* " + data.fullName + "\n" +
+      "📞 *Telefon:* " + data.phone + "\n" +
+      "📁 *Proje:* " + data.projectType + "\n" +
+      "💰 *Bütçe:* " + data.budget;
+
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: text,
+        parse_mode: 'Markdown'
+      })
+    });
+
+    const result = await response.json();
+    if (!result.ok) {
+      throw new Error(result.description || 'Telegram API hatası');
+    }
+    return result;
+  }
+
   // Form Submit
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
-      const name = document.getElementById('form-name').value;
-      const email = document.getElementById('form-email').value;
-      const subject = document.getElementById('form-subject').value;
-      const message = document.getElementById('form-message').value;
-      
-      console.log('Contact Form Submission:', { name, email, subject, message });
+      statusMsg.className = 'status-msg';
 
-      // Transition to success message
-      formContainer.style.display = 'none';
-      successContainer.classList.add('active');
+      const formData = new FormData(contactForm);
+      const data = {
+        fullName: formData.get('fullName')?.trim(),
+        phone: formData.get('phone')?.trim(),
+        projectType: formData.get('projectType'),
+        budget: formData.get('budget'),
+        website: formData.get('website') // honeypot
+      };
+
+      // Honeypot dolu ise sessizce reddet (bot muhtemelen)
+      if (data.website) {
+        return;
+      }
+
+      if (!validateForm(data)) {
+        const errMsg = getLang() === 'tr' 
+          ? 'Lütfen işaretli alanları kontrol edin.' 
+          : 'Please check the marked fields.';
+        showStatus(errMsg, 'fail');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = getLang() === 'tr' ? 'Gönderiliyor...' : 'Sending...';
+
+      try {
+        await sendToTelegram(data);
+        formContainer.style.display = 'none';
+        successContainer.classList.add('active');
+      } catch (err) {
+        const errMsg = getLang() === 'tr' 
+          ? 'Bir sorun oluştu, lütfen tekrar deneyin.' 
+          : 'An error occurred, please try again.';
+        showStatus(errMsg, 'fail');
+        console.error('Form gönderim hatası:', err);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = getLang() === 'tr' ? 'Gönder' : 'Send';
+      }
     });
   }
 </script>
