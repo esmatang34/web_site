@@ -1398,12 +1398,7 @@
   const submitBtn = document.getElementById('submitBtn');
   const statusMsg = document.getElementById('statusMsg');
 
-  // ============================================================
-  // TELEGRAM AYARLARI — kendi bilgilerinizle değiştirin
-  // ============================================================
-  const TELEGRAM_BOT_TOKEN = "8835034041:AAGVvQJxMtDJX3rTfLdkMuYzPUea3EQ1F80"; // BotFather'dan aldığınız token
-  const TELEGRAM_CHAT_ID   = "-1004371472204";   // Bildirimlerin gideceği grup/kanal ID'si
-  // ============================================================
+  // Telegram credentials are secure and handled by Cloudflare Pages Environment Variables.
 
   function getLang() {
     return document.body.classList.contains('lang-en') ? 'en' : 'tr';
@@ -1496,28 +1491,15 @@
   }
 
   async function sendToTelegram(data) {
-    const text =
-      "🆕 *Yeni İletişim Talebi*\n" +
-      "👤 *Ad Soyad:* " + data.fullName + "\n" +
-      "📞 *Telefon:* " + data.phone + "\n" +
-      "📁 *Proje:* " + data.projectType + "\n" +
-      "💰 *Bütçe:* " + data.budget;
-
-    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-
-    const response = await fetch(url, {
+    const response = await fetch('/api/send-message', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_CHAT_ID,
-        text: text,
-        parse_mode: 'Markdown'
-      })
+      body: JSON.stringify(data)
     });
 
     const result = await response.json();
     if (!result.ok) {
-      throw new Error(result.description || 'Telegram API hatası');
+      throw new Error(result.description || 'API hatası');
     }
     return result;
   }
