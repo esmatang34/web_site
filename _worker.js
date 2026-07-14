@@ -46,12 +46,16 @@ export default {
 
         const result = await response.json();
 
-        // SMTP2GO Email Integration (optional, runs if variables are set)
+        // Email Integration (optional, runs if Resend or SMTP2GO variables are set)
+        const resendApiKey = env.RESEND_API_KEY;
+        const resendSender = env.RESEND_SENDER;
+        const resendRecipient = env.RESEND_RECIPIENT;
+
         const smtpApiKey = env.SMTP2GO_API_KEY;
         const smtpSender = env.SMTP2GO_SENDER;
         const smtpRecipient = env.SMTP2GO_RECIPIENT;
 
-        if (smtpApiKey && smtpSender && smtpRecipient) {
+        if ((resendApiKey && resendSender && resendRecipient) || (smtpApiKey && smtpSender && smtpRecipient)) {
           const fullName = data.fullName || "Belirtilmedi";
           const phone = data.phone || "Belirtilmedi";
           const projectType = data.projectType || "Belirtilmedi";
@@ -104,21 +108,41 @@ export default {
 </body>
 </html>`;
 
-          try {
-            await fetch("https://api.smtp2go.com/v3/email/send", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                api_key: smtpApiKey,
-                to: [smtpRecipient],
-                sender: smtpSender,
-                subject: `Yeni İletişim Talebi - ${fullName}`,
-                html_body: emailHtml,
-                text_body: `Yeni İletişim Talebi\nAd Soyad: ${fullName}\nTelefon: ${phone}\nProje Türü: ${projectType}\nBütçe: ${budget}`
-              })
-            });
-          } catch (smtpErr) {
-            console.error("SMTP2GO send failed:", smtpErr);
+          if (resendApiKey && resendSender && resendRecipient) {
+            try {
+              await fetch("https://api.resend.com/emails", {
+                method: "POST",
+                headers: {
+                  "Authorization": `Bearer ${resendApiKey}`,
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  from: resendSender,
+                  to: [resendRecipient],
+                  subject: `Yeni İletişim Talebi - ${fullName}`,
+                  html: emailHtml
+                })
+              });
+            } catch (resendErr) {
+              console.error("Resend send failed:", resendErr);
+            }
+          } else if (smtpApiKey && smtpSender && smtpRecipient) {
+            try {
+              await fetch("https://api.smtp2go.com/v3/email/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  api_key: smtpApiKey,
+                  to: [smtpRecipient],
+                  sender: smtpSender,
+                  subject: `Yeni İletişim Talebi - ${fullName}`,
+                  html_body: emailHtml,
+                  text_body: `Yeni İletişim Talebi\nAd Soyad: ${fullName}\nTelefon: ${phone}\nProje Türü: ${projectType}\nBütçe: ${budget}`
+                })
+              });
+            } catch (smtpErr) {
+              console.error("SMTP2GO send failed:", smtpErr);
+            }
           }
         }
         
