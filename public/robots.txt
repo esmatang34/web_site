@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /tesekkurler.html
+Disallow: /api/
+
+Sitemap: https://esmatang.com.tr/sitemap.xml
