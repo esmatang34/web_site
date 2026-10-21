@@ -472,6 +472,18 @@
     white-space: nowrap;
   }
 
+  .project-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .project-links a { color: var(--accent); text-decoration: none; }
+  .project-links a:hover { text-decoration: underline; }
+
   /* ---------- CONTACT ---------- */
   .contact-section { border-bottom: none; padding-bottom: 96px; }
 
@@ -780,6 +792,7 @@
     .about-grid { grid-template-columns: 1fr; gap: 32px; }
     .project-row { grid-template-columns: 40px 1fr; }
     .project-tag { grid-column: 2; }
+    .project-links { grid-column: 2; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 6px 16px; }
   }
 
   /* ---------- SCROLL REVEAL ---------- */
@@ -1055,13 +1068,13 @@
       <div class="skill-card reveal reveal-delay-1">
         <h3><span class="tr">Geliştirme</span><span class="en">Development</span></h3>
         <div class="skill-tags">
-          <span>HTML/CSS</span><span>Git</span><span>GitHub</span><span>Python</span><span>C</span>
+          <span>Git</span><span>GitHub</span><span>Python</span><span>C</span>
         </div>
       </div>
       <div class="skill-card reveal reveal-delay-2">
         <h3><span class="tr">Araçlar</span><span class="en">Tools</span></h3>
         <div class="skill-tags">
-          <span>Cloudflare</span><span>VS Code</span><span>Docker</span><span>n8n</span><span>PocketBase</span>
+          <span>Cloudflare</span><span>Docker</span><span>n8n</span><span>PocketBase</span><span>Metabase</span><span>PostgreSQL</span><span>MSSQL</span>
         </div>
       </div>
       <div class="skill-card reveal reveal-delay-3">
@@ -1081,29 +1094,32 @@
     </div>
     <!-- Her satır bir proje. href kısmına projenin linkini ekle -->
     <div class="project-list">
-      <a href="#" class="project-row reveal reveal-delay-1">
+      <div class="project-row reveal reveal-delay-1">
         <span class="project-num">01</span>
         <span>
           <span class="project-title"><span class="tr">Docker Üzerinden WordPress Yedekleme</span><span class="en">WordPress Backup via Docker</span></span>
           <span class="project-desc"><span class="tr">Docker ortamındaki WordPress sitelerinin veritabanı ve dosyalarını otomatik olarak yedekleyen ve depolayan sistem.</span><span class="en">A system that automatically backs up and stores databases and files of WordPress sites in a Docker environment.</span></span>
         </span>
-        <span class="project-tag">github →</span>
-      </a>
-      <a href="#" class="project-row reveal reveal-delay-2">
+      </div>
+      <div class="project-row reveal reveal-delay-2">
         <span class="project-num">02</span>
         <span>
-          <span class="project-title"><span class="tr">Minigo Takip Uygulaması</span><span class="en">Minigo Tracking Application</span></span>
-          <span class="project-desc"><span class="tr">Minigo Çocuk oyun alanındaki çocukların güvenliğini ve durumlarını velilerin anlık olarak izlemesini sağlayan veli takip sistemi.</span><span class="en">A parent tracking system that allows parents to monitor the safety and status of children in the Minigo Kids playground in real-time.</span></span>
+          <span class="project-title"><span class="tr">Vinç Firması Web Sitesi Tasarımları</span><span class="en">Crane Company Website Designs</span></span>
+          <span class="project-desc"><span class="tr">Yapay zekâ desteğiyle tasarladığım, vinç ve kaldırma hizmetleri sunan firmalara yönelik üç farklı kurumsal web sitesi.</span><span class="en">Three different corporate websites for crane and lifting service companies, designed with the help of AI.</span></span>
         </span>
-        <span class="project-tag">github →</span>
-      </a>
-      <a href="#" class="project-row reveal reveal-delay-3" style="pointer-events: none; opacity: 0.7;">
+        <span class="project-links">
+          <a href="https://sivasvinc.net" target="_blank" rel="noopener">sivasvinc.net ↗</a>
+          <a href="https://yozgatvinc.net" target="_blank" rel="noopener">yozgatvinc.net ↗</a>
+          <a href="https://kayserivinc.tr" target="_blank" rel="noopener">kayserivinc.tr ↗</a>
+        </span>
+      </div>
+      <a href="https://github.com/esmatang34/yonetim_paneli" target="_blank" rel="noopener" class="project-row reveal reveal-delay-3">
         <span class="project-num">03</span>
         <span>
-          <span class="project-title"><span class="tr">Yakında</span><span class="en">Coming Soon</span></span>
-          <span class="project-desc"><span class="tr">Yeni proje yakında eklenecektir.</span><span class="en">A new project will be added soon.</span></span>
+          <span class="project-title"><span class="tr">Yönetim Paneli</span><span class="en">Admin Panel</span></span>
+          <span class="project-desc"><span class="tr">PostgreSQL ve MSSQL veritabanlarıyla çalışan, analiz ve raporlama katmanında Metabase kullanılan, arka planda n8n ile süreçlerin otomatikleştirildiği yönetim paneli.</span><span class="en">An admin panel built on PostgreSQL and MSSQL databases, using Metabase for analysis and reporting, with n8n automating processes in the background.</span></span>
         </span>
-        <span class="project-tag"></span>
+        <span class="project-tag">github →</span>
       </a>
     </div>
   </section>
