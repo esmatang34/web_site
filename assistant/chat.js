@@ -6,7 +6,7 @@
 // Cloudflare'de tanımlanması gereken değişkenler:
 //   LLM_API_KEY   (gizli, zorunlu)  Groq ya da OpenAI uyumlu başka bir sağlayıcının anahtarı
 //   LLM_BASE_URL  (isteğe bağlı)    varsayılan: https://api.groq.com/openai/v1
-//   LLM_MODEL     (isteğe bağlı)    varsayılan: llama-3.3-70b-versatile
+//   LLM_MODEL     (isteğe bağlı)    varsayılan: openai/gpt-oss-120b
 // Cevaplanamayan sorular, iletişim formuyla aynı Telegram sohbetine bildirilir
 // (TELEGRAM_BOT_TOKEN ve TELEGRAM_CHAT_ID zaten tanımlıysa).
 
@@ -133,7 +133,7 @@ async function askModel(env, knowledge, question) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + env.LLM_API_KEY },
     body: JSON.stringify({
-      model: env.LLM_MODEL || 'llama-3.3-70b-versatile',
+      model: env.LLM_MODEL || 'openai/gpt-oss-120b',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT + '\n\nBİLGİ:\n' + knowledge },
         { role: 'user', content: question }
