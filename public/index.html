@@ -111,6 +111,9 @@
 
   html { scroll-behavior: smooth; }
 
+  /* Mobilde sayfanın yana kaymasını engeller (sticky başlığı bozmadan) */
+  html, body { overflow-x: clip; }
+
   body {
     background: var(--bg);
     color: var(--ink);
@@ -790,20 +793,26 @@
       flex-direction: column;
       position: fixed;
       top: 0;
-      right: -100%;
+      right: 0;
       width: 280px;
+      max-width: 85vw;
+      /* Kapalıyken ekranın dışına itilir ve gizlenir; yandan kaydırınca görünmez */
+      transform: translateX(100%);
+      visibility: hidden;
       height: 100vh;
       background: var(--bg);
       border-left: 1px solid var(--line);
       box-shadow: -10px 0 30px rgba(0, 0, 0, 0.05);
       padding: 100px 40px 40px;
       gap: 28px;
-      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.3s, background-color 0.3s ease, border-color 0.3s ease;
       z-index: 99;
     }
 
     .nav-links.active {
-      right: 0;
+      transform: none;
+      visibility: visible;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s, background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .nav-links a {
