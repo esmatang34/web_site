@@ -1,6 +1,19 @@
+import { handleChat } from "./assistant/chat.js";
+
+// Müşterinin yazdığı serbest metin Telegram'ın Markdown biçimini ya da e-postanın HTML'ini bozmasın.
+const escapeMarkdown = (s) => String(s).replace(/([_*`\[\]])/g, "\\$1");
+const escapeHtml = (s) =>
+  String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
+
+    // Yapay zekâ asistanı (/api/chat, /api/chat/health)
+    if (url.pathname.startsWith("/api/chat")) {
+      const chatResponse = await handleChat(request, env, ctx);
+      if (chatResponse) return chatResponse;
+    }
     
     // Route to our API endpoint
     if (url.pathname === "/api/send-message" && request.method === "POST") {
@@ -27,10 +40,10 @@ export default {
 
         const text =
           "🆕 *Yeni İletişim Talebi*\n" +
-          "👤 *Ad Soyad:* " + (data.fullName || "Belirtilmedi") + "\n" +
-          "📞 *Telefon:* " + (data.phone || "Belirtilmedi") + "\n" +
-          "📁 *Proje:* " + (data.projectType || "Belirtilmedi") + "\n" +
-          "💰 *Bütçe:* " + (data.budget || "Belirtilmedi");
+          "👤 *Ad Soyad:* " + escapeMarkdown(data.fullName || "Belirtilmedi") + "\n" +
+          "📞 *Telefon:* " + escapeMarkdown(data.phone || "Belirtilmedi") + "\n" +
+          "📁 *Proje:* " + escapeMarkdown(data.projectType || "Belirtilmedi") + "\n" +
+          "💰 *Bütçe:* " + escapeMarkdown(data.budget || "Belirtilmedi");
 
         const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
@@ -52,10 +65,10 @@ export default {
         const resendRecipient = env.RESEND_RECIPIENT;
 
         if (resendApiKey && resendSender && resendRecipient) {
-          const fullName = data.fullName || "Belirtilmedi";
-          const phone = data.phone || "Belirtilmedi";
-          const projectType = data.projectType || "Belirtilmedi";
-          const budget = data.budget || "Belirtilmedi";
+          const fullName = escapeHtml(data.fullName || "Belirtilmedi");
+          const phone = escapeHtml(data.phone || "Belirtilmedi");
+          const projectType = escapeHtml(data.projectType || "Belirtilmedi");
+          const budget = escapeHtml(data.budget || "Belirtilmedi");
 
           const emailHtml = `<!DOCTYPE html>
 <html>
@@ -89,7 +102,7 @@ export default {
       <div class="value">${phone}</div>
     </div>
     <div class="field">
-      <div class="label">Proje Türü</div>
+      <div class="label">Proje</div>
       <div class="value">${projectType}</div>
     </div>
     <div class="field">

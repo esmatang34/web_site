@@ -62,14 +62,14 @@
 
   /* ---------- DARK THEME ---------- */
   body.dark-theme {
-    --bg: #0C0F12;
-    --bg-panel: #161A1F;
-    --ink: #FAFAF9;
-    --ink-soft: #9EA5B0;
-    --line: #242B35;
-    --accent: #60A5FA;
-    --accent-bright: #A63F52;
-    --bg-header: rgba(12, 15, 18, 0.92);
+    --bg: #0B0E14;
+    --bg-panel: #151A24;
+    --ink: #F6F1EA;
+    --ink-soft: #B4B9C4;
+    --line: #2A3140;
+    --accent: #6F93B8;
+    --accent-bright: #6F93B8;
+    --bg-header: rgba(11, 14, 20, 0.92);
     --logo-color: var(--accent);
   }
 
@@ -292,9 +292,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('foggy_night.jpg');
+    background-image: url('dark_sunset.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: center 82%;
     filter: blur(8px);
     opacity: 0;
     transform: scale(1.05);
@@ -387,10 +387,19 @@
     font-size: 14px;
     font-weight: 600;
     color: var(--accent-bright);
-    background: rgba(122, 28, 46, 0.08);
-    border: 1.5px solid var(--accent-bright);
-    border-radius: 2px;
-    padding: 4px 10px;
+    /* Klavye tuşu görünümü (butonlarla aynı yapı, daha küçük) */
+    background-color: #FFFFFF;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(0, 0, 0, 0.06));
+    border: 1px solid var(--accent-bright);
+    border-radius: 7px;
+    padding: 4px 11px;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.12),
+      0 5px 0 var(--accent-bright),
+      0 6px 0 1px rgba(0, 0, 0, 0.35),
+      0 12px 12px rgba(0, 0, 0, 0.18);
+    transform: translateY(-3px);
   }
 
   .section-head h2 {
@@ -417,7 +426,7 @@
     font-size: 14.5px;
   }
   .fact-list li:first-child { padding-top: 0; }
-  .fact-list span:first-child {
+  .fact-list li > span:first-child {
     font-family: 'JetBrains Mono', monospace;
     color: var(--ink-soft);
     text-transform: uppercase;
@@ -457,12 +466,26 @@
     color: var(--ink);
   }
 
+  .skill-tags > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .skill-tags img {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  body.dark-theme .skill-tags img.logo-mono { filter: invert(1); }
+
   /* ---------- PROJECTS ---------- */
   .project-list { display: flex; flex-direction: column; }
 
   .project-row {
     display: grid;
-    grid-template-columns: 60px 1fr auto;
+    grid-template-columns: 1fr auto;
     align-items: center;
     gap: 24px;
     padding: 26px 0;
@@ -473,12 +496,6 @@
   }
   .project-row:last-child { border-bottom: 1px solid var(--line); }
   .project-row:hover { padding-left: 8px; background: var(--bg-panel); }
-
-  .project-num {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--ink-soft);
-    font-size: 13px;
-  }
 
   .project-title {
     font-family: 'Fraunces', serif;
@@ -820,9 +837,227 @@
     }
 
     .about-grid { grid-template-columns: 1fr; gap: 32px; }
-    .project-row { grid-template-columns: 40px 1fr; }
-    .project-tag { grid-column: 2; }
-    .project-links { grid-column: 2; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 6px 16px; }
+    .project-row { grid-template-columns: 1fr; }
+    .project-tag { grid-column: 1; }
+    .project-links { grid-column: 1; flex-direction: row; flex-wrap: wrap; align-items: flex-start; gap: 6px 16px; }
+  }
+
+  /* ---------- BİLGİSAYAR DOKUNUŞLARI ---------- */
+  .type-cursor {
+    display: inline-block;
+    width: 0.07em;
+    min-width: 3px;
+    height: 0.85em;
+    margin-left: 0.12em;
+    background: var(--ink);
+    vertical-align: baseline;
+    animation: cursor-blink 1.1s steps(1) infinite;
+  }
+
+  @keyframes cursor-blink {
+    0%, 55% { opacity: 1; }
+    56%, 100% { opacity: 0; }
+  }
+
+  body.dark-theme .hero-eyebrow { color: var(--accent); }
+  body.dark-theme .section-index { background-color: #1C2230; }
+
+  .hero-eyebrow::before {
+    content: '> ';
+    color: var(--accent);
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .project-stack > span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 2px 8px;
+  }
+
+  /* Klavye tuşu görünümlü butonlar: iki buton aynı tuş, yalnızca renkleri farklı */
+  .btn {
+    --key-face: var(--ink);
+    --key-side: var(--accent);
+    --key-text: var(--bg);
+    --key-depth: 7px;
+    border-radius: 8px;
+    border: 1px solid var(--key-side);
+    color: var(--key-text);
+    background-color: var(--key-face);
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(0, 0, 0, 0.12));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -3px 0 rgba(0, 0, 0, 0.22),
+      0 var(--key-depth) 0 var(--key-side),
+      0 calc(var(--key-depth) + 1px) 0 1px rgba(0, 0, 0, 0.45),
+      0 calc(var(--key-depth) + 8px) 14px rgba(0, 0, 0, 0.3);
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+  }
+
+  .btn-ghost {
+    --key-face: #FFFFFF;
+    --key-side: #9AA0AA;
+    --key-text: var(--ink);
+  }
+
+  body.dark-theme .btn-ghost {
+    --key-face: #1C2230;
+    --key-side: #4A5568;
+  }
+
+  .btn-primary:hover, .btn-ghost:hover {
+    background-color: var(--key-face);
+    border-color: var(--key-side);
+  }
+
+  .btn:hover { --key-depth: 8px; transform: translateY(-1px); }
+
+  .btn:active {
+    --key-depth: 2px;
+    transform: translateY(5px);
+  }
+
+  .hero-actions { gap: 20px; padding-bottom: 10px; }
+
+  .control-btn {
+    border-radius: 6px;
+    box-shadow: 0 3px 0 var(--line);
+    transition: transform 0.08s ease, box-shadow 0.08s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .control-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--line); }
+
+  /* ---------- TEKNİK FÖY DÜZENİ ---------- */
+  section { border-bottom: none; }
+
+  .section-head {
+    border-top: 2px solid var(--ink);
+    padding-top: 18px;
+    transition: border-color 0.3s ease;
+  }
+
+  /* ---------- 3 BOYUTLU ÇERÇEVELER (hero penceresiyle aynı yapı) ---------- */
+  .skills-grid,
+  .project-list,
+  .modal-card {
+    --frame-side: color-mix(in srgb, var(--ink-soft) 40%, var(--bg));
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      0 8px 0 var(--frame-side),
+      0 9px 0 1px rgba(0, 0, 0, 0.35),
+      0 26px 40px rgba(0, 0, 0, 0.22);
+  }
+
+  .skills-grid { margin-bottom: 10px; }
+
+  .project-list {
+    margin-bottom: 10px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+  }
+
+  .project-list .project-row { padding: 26px 28px; }
+  .project-list .project-row:first-child { border-top: none; }
+  .project-list .project-row:last-child { border-bottom: none; }
+  .project-list .project-row:hover { padding-left: 34px; }
+
+  @media (max-width: 720px) {
+    .project-list .project-row { padding: 22px 18px; }
+    .project-list .project-row:hover { padding-left: 18px; }
+  }
+
+  /* Yetenek etiketleri: küçük tuşlar */
+  .skill-tags > span {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 0 var(--line);
+  }
+
+  /* ---------- PENCERE GÖRÜNÜMLÜ HERO ---------- */
+  .hero { padding: 64px 32px 88px; }
+
+  .hero::before { opacity: 0.55; filter: blur(16px); }
+  body.dark-theme .hero::after { opacity: 0.6; filter: blur(16px); }
+
+  .hero-window {
+    padding: 0;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    --window-side: color-mix(in srgb, var(--ink-soft) 40%, var(--bg));
+    box-shadow:
+      0 10px 0 var(--window-side),
+      0 11px 0 1px rgba(0, 0, 0, 0.45),
+      0 34px 50px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .hero-window::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('sea_background.jpg') center / cover;
+    opacity: 0.3;
+    z-index: 0;
+  }
+
+  body.dark-theme .hero-window::before {
+    background-image: url('dark_sunset.jpg');
+    background-position: center 82%;
+    opacity: 0.45;
+  }
+
+  .hero-window > * { position: relative; z-index: 1; }
+
+  .window-bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 11px 16px;
+    background: var(--bg-header);
+    border-bottom: 1px solid var(--line);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .window-dots { display: flex; gap: 7px; }
+
+  .window-dots span {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--line);
+    border: 1px solid var(--ink-soft);
+  }
+
+  .window-dots span:first-child {
+    background: var(--accent-bright);
+    border-color: var(--accent-bright);
+  }
+
+  .window-body { padding: 72px 56px 56px; }
+
+  @media (max-width: 720px) {
+    .hero { padding: 28px 14px 48px; }
+    .window-body { padding: 40px 22px 30px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .type-cursor { animation: none; }
   }
 
   /* ---------- SCROLL REVEAL ---------- */
@@ -1031,10 +1266,16 @@
 </header>
 
 <!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="wrap">
+<section class="hero" id="giris">
+  <div class="wrap hero-window">
+    <div class="window-bar" aria-hidden="true">
+      <span class="window-dots"><span></span><span></span><span></span></span>
+      <span>esmatang.com.tr</span>
+      <span></span>
+    </div>
+    <div class="window-body">
     <span class="hero-eyebrow"><span class="tr">Portföy — 2026</span><span class="en">Portfolio — 2026</span></span>
-    <h1>Esma Tang. <span class="tr"><em>Birden fazla alanda</em> çalışan bir üretici.</span><span class="en">A builder working in <em>multiple fields</em>.</span></h1>
+    <h1>Esma Tang. <span class="tr"><em>Birden fazla alanda</em> çalışan bir üretici</span><span class="en">A builder working in <em>multiple fields</em></span><span class="type-cursor" aria-hidden="true"></span></h1>
     <p class="tr">
       Farklı disiplinleri bir araya getirerek fikirleri somut ürünlere dönüştürüyorum.
       Aşağıda kim olduğum, ne yaptığım ve üzerinde çalıştığım projeler yer alıyor.
@@ -1046,6 +1287,7 @@
     <div class="hero-actions">
       <a href="#projeler" class="btn btn-primary"><span class="tr">Projelerimi gör</span><span class="en">See my projects</span></a>
       <a href="#iletisim" class="btn btn-ghost"><span class="tr">İletişime geç</span><span class="en">Get in touch</span></a>
+    </div>
     </div>
   </div>
 </section>
@@ -1081,6 +1323,7 @@
       <ul class="fact-list reveal reveal-delay-2">
         <li><span><span class="tr">Konum</span><span class="en">Location</span></span><span><span class="tr">Kayseri, Türkiye</span><span class="en">Kayseri, Turkey</span></span></li>
         <li><span><span class="tr">Odak</span><span class="en">Focus</span></span><span><span class="tr">Çoklu disiplin</span><span class="en">Multidiscipline</span></span></li>
+        <li><span><span class="tr">Eğitim</span><span class="en">Education</span></span><span><span class="tr">Bilgisayar Mühendisliği</span><span class="en">Computer Engineering</span></span></li>
         <li><span><span class="tr">Durum</span><span class="en">Status</span></span><span><span class="tr">Yeni fırsatlara açık</span><span class="en">Open to opportunities</span></span></li>
         <li><span>GitHub</span><span>@esmatang34</span></li>
       </ul>
@@ -1098,13 +1341,13 @@
       <div class="skill-card reveal reveal-delay-1">
         <h3><span class="tr">Geliştirme</span><span class="en">Development</span></h3>
         <div class="skill-tags">
-          <span>Git</span><span>GitHub</span><span>Python</span><span>C</span>
+          <span><img src="icons/git.svg" alt="" width="16" height="16" loading="lazy">Git</span><span><img class="logo-mono" src="icons/github.svg" alt="" width="16" height="16" loading="lazy">GitHub</span><span><img src="icons/python.svg" alt="" width="16" height="16" loading="lazy">Python</span><span><img src="icons/c.svg" alt="" width="16" height="16" loading="lazy">C</span>
         </div>
       </div>
       <div class="skill-card reveal reveal-delay-2">
         <h3><span class="tr">Araçlar</span><span class="en">Tools</span></h3>
         <div class="skill-tags">
-          <span>Cloudflare</span><span>Docker</span><span>n8n</span><span>PocketBase</span><span>Metabase</span><span>PostgreSQL</span><span>MSSQL</span>
+          <span><img src="icons/cloudflare.svg" alt="" width="16" height="16" loading="lazy">Cloudflare</span><span><img src="icons/docker.svg" alt="" width="16" height="16" loading="lazy">Docker</span><span><img src="icons/n8n.svg" alt="" width="16" height="16" loading="lazy">n8n</span><span><img src="icons/pocketbase.svg" alt="" width="16" height="16" loading="lazy">PocketBase</span><span><img src="icons/metabase.svg" alt="" width="16" height="16" loading="lazy">Metabase</span><span><img src="icons/postgresql.svg" alt="" width="16" height="16" loading="lazy">PostgreSQL</span><span><img src="icons/mssql.svg" alt="" width="16" height="16" loading="lazy">MSSQL</span>
         </div>
       </div>
       <div class="skill-card reveal reveal-delay-3">
@@ -1125,17 +1368,17 @@
     <!-- Her satır bir proje. href kısmına projenin linkini ekle -->
     <div class="project-list">
       <div class="project-row reveal reveal-delay-1">
-        <span class="project-num">01</span>
         <span>
           <span class="project-title"><span class="tr">Docker Üzerinden WordPress Yedekleme</span><span class="en">WordPress Backup via Docker</span></span>
           <span class="project-desc"><span class="tr">Docker ortamındaki WordPress sitelerinin veritabanı ve dosyalarını otomatik olarak yedekleyen ve depolayan sistem.</span><span class="en">A system that automatically backs up and stores databases and files of WordPress sites in a Docker environment.</span></span>
+          <span class="project-stack"><span>Docker</span><span>WordPress</span><span><span class="tr">Otomatik yedekleme</span><span class="en">Automated backup</span></span></span>
         </span>
       </div>
       <div class="project-row reveal reveal-delay-2">
-        <span class="project-num">02</span>
         <span>
           <span class="project-title"><span class="tr">Vinç Firması Web Sitesi Tasarımları</span><span class="en">Crane Company Website Designs</span></span>
           <span class="project-desc"><span class="tr">Yapay zekâ desteğiyle tasarladığım, vinç ve kaldırma hizmetleri sunan firmalara yönelik üç farklı kurumsal web sitesi.</span><span class="en">Three different corporate websites for crane and lifting service companies, designed with the help of AI.</span></span>
+          <span class="project-stack"><span><span class="tr">Web tasarım</span><span class="en">Web design</span></span><span><span class="tr">Yapay zekâ destekli</span><span class="en">AI-assisted</span></span><span><span class="tr">3 site</span><span class="en">3 sites</span></span></span>
         </span>
         <span class="project-links">
           <a href="https://sivasvinc.net" target="_blank" rel="noopener">sivasvinc.net ↗</a>
@@ -1144,10 +1387,10 @@
         </span>
       </div>
       <a href="https://github.com/esmatang34/yonetim_paneli" target="_blank" rel="noopener" class="project-row reveal reveal-delay-3">
-        <span class="project-num">03</span>
         <span>
           <span class="project-title"><span class="tr">Yönetim Paneli</span><span class="en">Admin Panel</span></span>
           <span class="project-desc"><span class="tr">PostgreSQL ve MSSQL veritabanlarıyla çalışan, analiz ve raporlama katmanında Metabase kullanılan, arka planda n8n ile süreçlerin otomatikleştirildiği yönetim paneli.</span><span class="en">An admin panel built on PostgreSQL and MSSQL databases, using Metabase for analysis and reporting, with n8n automating processes in the background.</span></span>
+          <span class="project-stack"><span>PostgreSQL</span><span>MSSQL</span><span>Metabase</span><span>n8n</span></span>
         </span>
         <span class="project-tag">github →</span>
       </a>
@@ -1228,20 +1471,13 @@
 
         <div class="form-group" id="field-project">
           <label for="form-project">
-            <span class="tr">Proje Seçimi</span>
-            <span class="en">Project Type</span>
+            <span class="tr">Proje</span>
+            <span class="en">Project</span>
           </label>
-          <select id="form-project" name="projectType" class="form-control">
-            <option value="" disabled selected>Seçiniz / Select</option>
-            <option value="Web Sitesi">Web Sitesi / Website</option>
-            <option value="E-ticaret">E-ticaret / E-commerce</option>
-            <option value="Mobil Uygulama">Mobil Uygulama / Mobile App</option>
-            <option value="Kurumsal Kimlik">Kurumsal Kimlik / Corporate Identity</option>
-            <option value="Diğer">Diğer / Other</option>
-          </select>
+          <input type="text" id="form-project" name="projectType" class="form-control" maxlength="200" placeholder="Kurumsal web sitesi, yönetim paneli…" autocomplete="off">
           <div class="error-text">
-            <span class="tr">Lütfen bir proje türü seçin.</span>
-            <span class="en">Please select a project type.</span>
+            <span class="tr">Lütfen projenizi kısaca yazın.</span>
+            <span class="en">Please briefly describe your project.</span>
           </div>
         </div>
 
@@ -1536,7 +1772,7 @@
       showFieldError('field-phone');
       valid = false;
     }
-    if (!data.projectType) {
+    if (!data.projectType || data.projectType.length < 3) {
       showFieldError('field-project');
       valid = false;
     }
@@ -1576,7 +1812,7 @@
       const data = {
         fullName: formData.get('fullName')?.trim(),
         phone: formData.get('phone')?.trim(),
-        projectType: formData.get('projectType'),
+        projectType: formData.get('projectType')?.trim(),
         budget: formData.get('budget'),
         website: formData.get('website') // honeypot
       };
@@ -1626,7 +1862,7 @@
 </script>
 
 <!-- Sohbet kutusu (yapay zekâ asistanı). Asistan kapalıysa düğme kendiliğinden gizlenir. -->
-<script src="chat-widget.js" data-api="https://asistan.esmatang.com.tr/api/chat" defer></script>
+<script src="chat-widget.js" data-api="/api/chat" defer></script>
 
 </body>
 </html>
